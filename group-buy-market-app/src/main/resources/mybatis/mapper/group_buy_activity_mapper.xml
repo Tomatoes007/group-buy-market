@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.infrastructure.dao.IGroupBuyActivityDao">
+
+    <resultMap id="BaseResultMap" type="org.example.infrastructure.dao.po.GroupBuyActivity">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="activity_id" property="activityId" jdbcType="BIGINT"/>
+        <result column="source" property="source" jdbcType="VARCHAR"/>
+        <result column="channel" property="channel" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="discount_id" property="discountId" jdbcType="VARCHAR"/>
+        <result column="group_type" property="groupType" jdbcType="TINYINT"/>
+        <result column="take_limit_count" property="takeLimitCount" jdbcType="INTEGER"/>
+        <result column="target" property="target" jdbcType="INTEGER"/>
+        <result column="valid_time" property="validTime" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="tag_id" property="tagId" jdbcType="VARCHAR"/>
+        <result column="tag_scope" property="tagScope" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 查询所有活动信息 -->
+    <select id="queryAll" resultMap="BaseResultMap">
+        SELECT id, activity_id, source, channel, goods_id, discount_id, group_type, take_limit_count, target, valid_time, status, start_time, end_time, tag_id, tag_scope, create_time, update_time
+        FROM group_buy_activity
+    </select>
+
+</mapper>
