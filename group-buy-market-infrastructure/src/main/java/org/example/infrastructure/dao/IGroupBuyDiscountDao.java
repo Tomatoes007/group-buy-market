@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface IGroupBuyDiscountDao {
     List<GroupBuyDiscount> queryAll();
+    GroupBuyDiscount queryGroupBuyDiscountById(String discountId);
 }

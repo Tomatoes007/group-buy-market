@@ -21,4 +21,11 @@
         FROM group_buy_discount
     </select>
 
+    <select id="queryGroupBuyDiscountById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select discount_id, discount_name, discount_desc, discount_type,
+               market_plan, market_expr, tag_id
+        from group_buy_discount
+        where discount_id = #{discountId}
+    </select>
+
 </mapper>

@@ -8,16 +8,22 @@ import org.example.domain.activity.service.trial.factory.DefaultActivityStratety
 import org.example.types.design.framework.tree.StrategyHandler;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Slf4j
 @Service
 public class SwitchNode extends AbstractGroupBuyMarketSupport<MarketProductEntity, DefaultActivityStratetyFactory.DynamicContext, TrialBalanceEntity> {
+
+    @Resource
+    private MarketNode marketNode;
+
     @Override
-    public TrialBalanceEntity apply(MarketProductEntity requestParameter, DefaultActivityStratetyFactory.DynamicContext dynamicContext) throws Exception {
-        return null;
+    public TrialBalanceEntity doApply(MarketProductEntity requestParameter, DefaultActivityStratetyFactory.DynamicContext dynamicContext) throws Exception {
+        return router(requestParameter, dynamicContext);
     }
 
     @Override
     public StrategyHandler<MarketProductEntity, DefaultActivityStratetyFactory.DynamicContext, TrialBalanceEntity> get(MarketProductEntity requestParameter, DefaultActivityStratetyFactory.DynamicContext dynamicContext) {
-        return null;
+        return marketNode;
     }
 }

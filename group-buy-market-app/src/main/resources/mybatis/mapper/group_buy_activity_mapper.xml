@@ -5,6 +5,7 @@
     <resultMap id="BaseResultMap" type="org.example.infrastructure.dao.po.GroupBuyActivity">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="activity_id" property="activityId" jdbcType="BIGINT"/>
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR"/>
         <result column="source" property="source" jdbcType="VARCHAR"/>
         <result column="channel" property="channel" jdbcType="VARCHAR"/>
         <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
@@ -26,6 +27,16 @@
     <select id="queryAll" resultMap="BaseResultMap">
         SELECT id, activity_id, source, channel, goods_id, discount_id, group_type, take_limit_count, target, valid_time, status, start_time, end_time, tag_id, tag_scope, create_time, update_time
         FROM group_buy_activity
+    </select>
+
+    <select id="queryValidGroupBuyActivity" parameterType="org.example.infrastructure.dao.po.GroupBuyActivity" resultMap="BaseResultMap">
+        select activity_id, activity_name, source, channel, goods_id,
+               discount_id, group_type, take_limit_count, target, valid_time, status,
+               start_time, end_time, tag_id, tag_scope
+        from group_buy_activity
+        where source = #{source} and channel = #{channel}
+        order by id desc
+        limit 1
     </select>
 
 </mapper>

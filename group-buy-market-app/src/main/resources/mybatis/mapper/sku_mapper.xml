@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace: 必须对应你的 Mapper 接口的全限定名 -->
+<mapper namespace="org.example.infrastructure.dao.ISkuDao">
+
+    <!-- 1. 结果映射：将数据库字段映射到实体类属性 -->
+    <!-- type: 对应你的实体类全限定名 -->
+    <resultMap id="BaseResultMap" type="org.example.infrastructure.dao.po.Sku">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="source" jdbcType="VARCHAR" property="source" />
+        <result column="channel" jdbcType="VARCHAR" property="channel" />
+        <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+        <result column="original_price" jdbcType="DECIMAL" property="originalPrice" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <!-- 2. 通用查询列集合 -->
+    <select id="querySkuByGoodsId" parameterType="java.lang.String" resultType="org.example.infrastructure.dao.po.Sku">
+        SELECT
+            id,
+            source,
+            channel,
+            goods_id AS goodsId,
+            goods_name AS goodsName,
+            original_price AS originalPrice,
+            create_time AS createTime,
+            update_time AS updateTime
+        FROM sku
+        WHERE goods_id = #{goodsId}
+    </select>
+
+</mapper>
