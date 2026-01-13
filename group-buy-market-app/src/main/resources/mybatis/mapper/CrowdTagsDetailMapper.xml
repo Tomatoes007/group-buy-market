@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.infrastructure.dao.ICrowdTagsDetailDao">
+    <resultMap id="BaseResultMap" type="org.example.infrastructure.dao.po.CrowdTagsDetail">
+        <!--@mbg.generated-->
+        <!--@Table crowd_tags_detail-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="tag_id" jdbcType="VARCHAR" property="tagId"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <insert id="addCrowdTagsUserId" parameterType="org.example.infrastructure.dao.po.CrowdTagsDetail">
+        insert into crowd_tags_detail(tag_id, user_id, create_time, update_time)
+        values (#{tagId}, #{userId}, now(), now())
+    </insert>
+
+    <select id="queryCrowdTagsDetailByTagidAndUserid" resultMap="BaseResultMap">
+        select create_time,update_time
+        from crowd_tags_detail
+        where tag_id = #{tagId} AND user_id = #{userId}
+    </select>
+
+    <update id="updateCrowdTagsDetailTime">
+        update `crowd_tags_detail`
+        set update_time = now()
+        where tag_id = #{tagId} AND user_id = #{userId}
+    </update>
+</mapper>

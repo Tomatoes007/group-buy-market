@@ -6,60 +6,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Sku {
-
-    /**
-     * 自增ID
-     * 对应字段: id
-     */
+    /** 自增 */
     private Long id;
-
-    /**
-     * 渠道
-     * 对应字段: source
-     */
+    /** 来源 */
     private String source;
-
-    /**
-     * 来源
-     * 对应字段: channel
-     */
+    /** 渠道 */
     private String channel;
-
-    /**
-     * 商品ID
-     * 对应字段: goods_id
-     */
+    /** 商品ID */
     private String goodsId;
-
-    /**
-     * 商品名称
-     * 对应字段: goods_name
-     */
+    /** 商品名称 */
     private String goodsName;
-
-    /**
-     * 商品价格
-     * 对应字段: original_price
-     * (使用 BigDecimal 保证金额精度)
-     */
+    /** 原始价格 */
     private BigDecimal originalPrice;
-
-    /**
-     * 创建时间
-     * 对应字段: create_time
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     * 对应字段: update_time
-     */
-    private LocalDateTime updateTime;
+    /** 创建时间 */
+    private Date createTime;
+    /** 更新时间 */
+    private Date updateTime;
 }

@@ -1,5 +1,6 @@
 package org.example.types.enums;
 
+import javafx.scene.input.KeyCodeCombination;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public enum ResponseCode {
     UN_ERROR("0001", "未知失败"),
     ILLEGAL_PARAMETER("0002", "非法参数"),
     E0001("E0001", "不存在对应折扣计算方式"),
+    E0002("E0002", "此商品没有配置任何活动"),
     ;
 
     private String code;

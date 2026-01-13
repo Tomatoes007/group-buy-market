@@ -8,5 +8,6 @@ import java.util.List;
 @Mapper
 public interface IGroupBuyActivityDao {
     List<GroupBuyActivity> queryAll();
-    GroupBuyActivity queryValidGroupBuyActivity(GroupBuyActivity groupBuyActivity);
+    GroupBuyActivity queryValidGroupBuyActivityId(GroupBuyActivity groupBuyActivity);
+    GroupBuyActivity queryValidGroupBuyActivityId(Long activityId);
 }

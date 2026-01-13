@@ -6,9 +6,6 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="activity_id" property="activityId" jdbcType="BIGINT"/>
         <result column="activity_name" property="activityName" jdbcType="VARCHAR"/>
-        <result column="source" property="source" jdbcType="VARCHAR"/>
-        <result column="channel" property="channel" jdbcType="VARCHAR"/>
-        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
         <result column="discount_id" property="discountId" jdbcType="VARCHAR"/>
         <result column="group_type" property="groupType" jdbcType="TINYINT"/>
         <result column="take_limit_count" property="takeLimitCount" jdbcType="INTEGER"/>
@@ -25,18 +22,23 @@
 
     <!-- 查询所有活动信息 -->
     <select id="queryAll" resultMap="BaseResultMap">
-        SELECT id, activity_id, source, channel, goods_id, discount_id, group_type, take_limit_count, target, valid_time, status, start_time, end_time, tag_id, tag_scope, create_time, update_time
+        SELECT id, activity_id, activity_name, discount_id, group_type, take_limit_count, target,
+               valid_time, status, start_time, end_time, tag_id, tag_scope, create_time, update_time
         FROM group_buy_activity
     </select>
 
-    <select id="queryValidGroupBuyActivity" parameterType="org.example.infrastructure.dao.po.GroupBuyActivity" resultMap="BaseResultMap">
-        select activity_id, activity_name, source, channel, goods_id,
-               discount_id, group_type, take_limit_count, target, valid_time, status,
-               start_time, end_time, tag_id, tag_scope
-        from group_buy_activity
-        where source = #{source} and channel = #{channel}
-        order by id desc
-        limit 1
+<!--    <select id="queryValidGroupBuyActivityId" parameterType="org.example.infrastructure.dao.po.GroupBuyActivity" resultMap="BaseResultMap">-->
+<!--        SELECT activity_id, activity_name, discount_id, group_type, take_limit_count, target,-->
+<!--               valid_time, status, start_time, end_time, tag_id, tag_scope-->
+<!--        FROM group_buy_activity-->
+<!--        WHERE activity_id = #{activityId} and status = 1-->
+<!--    </select>-->
+
+    <select id="queryValidGroupBuyActivityId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT activity_id, activity_name, discount_id, group_type, take_limit_count, target,
+               valid_time, status, start_time, end_time, tag_id, tag_scope
+        FROM group_buy_activity
+        WHERE activity_id = #{activityId} and status = 1
     </select>
 
 </mapper>
