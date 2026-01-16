@@ -14,6 +14,8 @@ import org.example.infrastructure.dao.po.GroupBuyActivity;
 import org.example.infrastructure.dao.po.GroupBuyDiscount;
 import org.example.infrastructure.dao.po.SCSkuActivity;
 import org.example.infrastructure.dao.po.Sku;
+import org.example.infrastructure.redis.IRedisService;
+import org.redisson.api.RBitSet;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -30,6 +32,8 @@ public class ActivityRepository implements IActivityRepository {
     private ISkuDao skuDao;
     @Resource
     private ISCSkuActivityDao scSkuActivityDao;
+    @Resource
+    private IRedisService redisService;
 
 //    @Override
 //    public GroupBuyActivityDiscountVO queryGroupBuyActivityDiscountVO(String source, String channel) {
@@ -131,6 +135,13 @@ public class ActivityRepository implements IActivityRepository {
                 .activityId(scSkuActivityRes.getActivityId())
                 .goodsId(scSkuActivityRes.getGoodsId())
                 .build();
+    }
+
+    @Override
+    public boolean isTagCrowRange(String tagId, String userId) {
+        RBitSet bitSet = redisService.getBitSet(tagId);
+        if (!bitSet.isExists()) return true;
+        return bitSet.get(redisService.getIndexFromUserId(userId));
     }
 
 }
