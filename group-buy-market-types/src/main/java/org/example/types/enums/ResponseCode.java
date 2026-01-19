@@ -15,6 +15,8 @@ public enum ResponseCode {
     ILLEGAL_PARAMETER("0002", "非法参数"),
     E0001("E0001", "不存在对应折扣计算方式"),
     E0002("E0002", "此商品没有配置任何活动"),
+    E0003("E0003", "活动降级拦截"),
+    E0004("E0004", "活动切量拦截"),
     ;
 
     private String code;

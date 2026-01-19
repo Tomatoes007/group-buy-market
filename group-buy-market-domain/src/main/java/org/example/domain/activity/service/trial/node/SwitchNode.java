@@ -6,6 +6,8 @@ import org.example.domain.activity.model.entity.TrialBalanceEntity;
 import org.example.domain.activity.service.trial.AbstractGroupBuyMarketSupport;
 import org.example.domain.activity.service.trial.factory.DefaultActivityStratetyFactory;
 import org.example.types.design.framework.tree.StrategyHandler;
+import org.example.types.enums.ResponseCode;
+import org.example.types.exception.AppException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,6 +21,13 @@ public class SwitchNode extends AbstractGroupBuyMarketSupport<MarketProductEntit
 
     @Override
     public TrialBalanceEntity doApply(MarketProductEntity requestParameter, DefaultActivityStratetyFactory.DynamicContext dynamicContext) throws Exception {
+        String userId = requestParameter.getUserId();
+        if(repository.downgradeSwitch()){
+            throw new AppException(ResponseCode.E0003.getCode(), ResponseCode.E0003.getInfo());
+        }
+        if(!repository.cutRange(userId)){
+            throw new AppException(ResponseCode.E0004.getCode(), ResponseCode.E0004.getInfo());
+        }
         return router(requestParameter, dynamicContext);
     }
 
