@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.infrastructure.dao.IGroupBuyOrderDao">
+    <resultMap id="BaseResultMap" type="org.example.infrastructure.dao.po.GroupBuyOrder">
+        <!--@mbg.generated-->
+        <!--@Table group_buy_order-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="team_id" jdbcType="VARCHAR" property="teamId"/>
+        <result column="activity_id" jdbcType="BIGINT" property="activityId"/>
+        <result column="source" jdbcType="VARCHAR" property="source"/>
+        <result column="channel" jdbcType="VARCHAR" property="channel"/>
+        <result column="original_price" jdbcType="DECIMAL" property="originalPrice"/>
+        <result column="deduction_price" jdbcType="DECIMAL" property="deductionPrice"/>
+        <result column="pay_price" jdbcType="DECIMAL" property="payPrice"/>
+        <result column="target_count" jdbcType="INTEGER" property="targetCount"/>
+        <result column="complete_count" jdbcType="INTEGER" property="completeCount"/>
+        <result column="lock_count" jdbcType="INTEGER" property="lockCount"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+
+    </resultMap>
+
+    <insert id="insert" parameterType="org.example.infrastructure.dao.po.GroupBuyOrder">
+        insert into group_buy_order(team_id, activity_id, source, channel, original_price,
+                                    deduction_price, pay_price, target_count, complete_count,
+                                    lock_count, status, create_time, update_time)
+        values (#{teamId}, #{activityId}, #{source}, #{channel}, #{originalPrice},
+                #{deductionPrice}, #{payPrice}, #{targetCount}, #{completeCount}, #{lockCount}, 0, now(), now())
+    </insert>
+
+    <update id="updateAddLockCount" parameterType="java.lang.String">
+        <![CDATA[
+        update group_buy_order
+        set lock_count = lock_count + 1,
+            update_time= now()
+        where team_id = #{teamId}
+          and lock_count < target_count
+        ]]>
+    </update>
+
+
+    <update id="updateSubtractLockCount" parameterType="java.lang.String">
+        update group_buy_order
+        set lock_count = lock_count - 1,
+            update_time= now()
+        where team_id = #{teamId}
+          and lock_count > 0
+    </update>
+
+    <select id="queryGroupBuyProgress" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select target_count, complete_count, lock_count
+        from group_buy_order
+        where team_id = #{teamId}
+    </select>
+
+<!--    <select id="queryGroupBuyTeamByTestId" resultMap="BaseResultMap">-->
+<!--        select team_id,-->
+<!--               activity_id,-->
+<!--               target_count,-->
+<!--               complete_count,-->
+<!--               lock_count,-->
+<!--               status,-->
+<!--               valid_start_time,-->
+<!--               valid_end_time,-->
+<!--               notify_url-->
+<!--        from group_buy_order-->
+<!--        where team_id = #{teamId}-->
+<!--    </select>-->
+
+
+<!--    <update id="updateAddCompleteCount" parameterType="java.lang.String">-->
+<!--        <![CDATA[-->
+<!--        update group_buy_order-->
+<!--        set complete_count = complete_count + 1,-->
+<!--            update_time= now()-->
+<!--        where team_id = #{teamId}-->
+<!--          and complete_count < target_count-->
+<!--        ]]>-->
+<!--    </update>-->
+
+<!--    <update id="updateOrderStatus2COMPLETE" parameterType="java.lang.String">-->
+<!--        update group_buy_order-->
+<!--        set status     = 1,-->
+<!--            update_time= now()-->
+<!--        where team_id = #{teamId}-->
+<!--          and status = 0-->
+<!--    </update>-->
+
+<!--    <select id="queryGroupBuyProgressByTeamIds" resultMap="BaseResultMap">-->
+<!--        select team_id, activity_id, target_count, complete_count, lock_count, status, valid_start_time, valid_end_time,-->
+<!--        notify_url-->
+<!--        from group_buy_order-->
+<!--        where status = 0 and target_count > lock_count and team_id in-->
+<!--        <foreach item="teamId" collection="teamIds" open="(" separator="," close=")">-->
+<!--            #{teamId}-->
+<!--        </foreach>-->
+<!--    </select>-->
+
+<!--    <select id="queryAllTeamCount" resultType="java.lang.Integer">-->
+<!--        select count(id) from group_buy_order-->
+<!--        where team_id in-->
+<!--        <foreach item="teamId" collection="teamIds" open="(" separator="," close=")">-->
+<!--            #{teamId}-->
+<!--        </foreach>-->
+<!--    </select>-->
+
+<!--    <select id="queryAllTeamCompleteCount" resultType="java.lang.Integer">-->
+<!--        select count(id) from group_buy_order-->
+<!--        where status = 1 and team_id in-->
+<!--        <foreach item="teamId" collection="teamIds" open="(" separator="," close=")">-->
+<!--            #{teamId}-->
+<!--        </foreach>-->
+<!--    </select>-->
+
+<!--    <select id="queryAllUserCount" resultType="java.lang.Integer">-->
+<!--        select sum(lock_count) from group_buy_order-->
+<!--        where team_id in-->
+<!--        <foreach item="teamId" collection="teamIds" open="(" separator="," close=")">-->
+<!--            #{teamId}-->
+<!--        </foreach>-->
+<!--    </select>-->
+</mapper>

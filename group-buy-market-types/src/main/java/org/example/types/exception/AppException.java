@@ -2,6 +2,7 @@ package org.example.types.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.example.types.enums.ResponseCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -34,6 +35,11 @@ public class AppException extends RuntimeException {
         this.info = message;
         super.initCause(cause);
     }
+    public AppException(ResponseCode responseCode) {
+        this.code = responseCode.getCode();
+        this.info = responseCode.getInfo();
+    }
+
 
     @Override
     public String toString() {
