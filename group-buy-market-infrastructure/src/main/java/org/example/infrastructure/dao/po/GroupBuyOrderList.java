@@ -83,6 +83,9 @@ public class GroupBuyOrderList extends Page implements Serializable {
      */
     private Integer status;
 
+
+    private String bizId;
+
     /**
      * 外部交易单号-确保外部调用唯一幂等
      */

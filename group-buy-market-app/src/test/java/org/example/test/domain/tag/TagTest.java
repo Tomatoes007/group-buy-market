@@ -28,7 +28,7 @@ public class TagTest {
     @Test
     public void test_get_tag_bitmap() {
         RBitSet bitSet = redisService.getBitSet("RQ_KJHKL98UU78H665546FDV");
-        log.info("测试结果: {}", bitSet.get(redisService.getIndexFromUserId("xiaofuge")));
+        log.info("测试结果: {}", bitSet.get(redisService.getIndexFromUserId("lzm")));
         log.info("测试结果: {}", bitSet.get(redisService.getIndexFromUserId("gudebai")));
     }
 }

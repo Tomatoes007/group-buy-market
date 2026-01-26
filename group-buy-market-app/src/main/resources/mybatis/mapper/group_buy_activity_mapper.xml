@@ -41,4 +41,11 @@
         WHERE activity_id = #{activityId} and status = 1
     </select>
 
+    <select id="queryGroupBuyActivityByActivityId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT activity_id, activity_name, discount_id, group_type, take_limit_count, target,
+               valid_time, status, start_time, end_time, tag_id, tag_scope
+        FROM group_buy_activity
+        WHERE activity_id = #{activityId}
+    </select>
+
 </mapper>

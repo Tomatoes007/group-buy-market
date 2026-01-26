@@ -4,5 +4,5 @@ public interface ILogicHandler<T,D,R> {
     default R next(T Requestparameter, D dynamicContext) {
         return null;
     }
-    R apply(T Requestparameter, D dynamicContext) throws Exception;
+    R apply(T requestParameter, D dynamicContext) throws Exception;
 }

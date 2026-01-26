@@ -10,4 +10,6 @@ public interface IGroupBuyActivityDao {
     List<GroupBuyActivity> queryAll();
     GroupBuyActivity queryValidGroupBuyActivityId(GroupBuyActivity groupBuyActivity);
     GroupBuyActivity queryValidGroupBuyActivityId(Long activityId);
+
+    GroupBuyActivity queryGroupBuyActivityByActivityId(Long activityId);
 }

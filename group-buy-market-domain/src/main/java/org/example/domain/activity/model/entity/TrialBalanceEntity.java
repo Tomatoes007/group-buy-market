@@ -35,6 +35,7 @@ public class TrialBalanceEntity {
      */
     private BigDecimal deductionPrice;
 
+    private BigDecimal payPrice;
     /**
      * 目标数量（如秒杀库存）
      */
