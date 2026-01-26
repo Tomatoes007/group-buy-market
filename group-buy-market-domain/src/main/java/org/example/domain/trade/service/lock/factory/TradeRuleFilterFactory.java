@@ -1,4 +1,4 @@
-package org.example.domain.trade.service.factory;
+package org.example.domain.trade.service.lock.factory;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.domain.trade.model.entity.GroupBuyActivityEntity;
 import org.example.domain.trade.model.entity.TradeLockRuleCommandEntity;
 import org.example.domain.trade.model.entity.TradeLockRuleFilterBackEntity;
-import org.example.domain.trade.service.filter.ActivityUsabilityRuleFilter;
-import org.example.domain.trade.service.filter.UserTakeLimitRuleFilter;
+import org.example.domain.trade.service.lock.filter.ActivityUsabilityRuleFilter;
+import org.example.domain.trade.service.lock.filter.UserTakeLimitRuleFilter;
 import org.example.types.design.framework.link.model2.LinkArmory;
 import org.example.types.design.framework.link.model2.chain.BussinessLinkedList;
 import org.springframework.context.annotation.Bean;

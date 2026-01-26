@@ -6,7 +6,7 @@ import org.example.domain.trade.model.entity.PayDiscountEntity;
 import org.example.domain.trade.model.entity.UserEntity;
 import org.example.domain.trade.model.valobj.GroupBuyProgressVO;
 
-public interface ITradeOrderService {
+public interface ITradeLockOrderService {
 
     GroupBuyProgressVO queryGroupBuyProgress(String teamId);
 

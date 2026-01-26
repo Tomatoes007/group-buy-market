@@ -24,6 +24,7 @@ public enum ResponseCode {
     E0101("E0101", "拼团活动未生效"),
     E0102("E0102", "不在拼团活动有效时间内"),
     E0103("E0103", "当前用户参与此拼团活动已达上线"),
+    UPDATE_ZERO("0004","更新记录为0"),
     INDEX_EXCEPTION("EEE", "唯一索引冲突");
 
     private String code;
