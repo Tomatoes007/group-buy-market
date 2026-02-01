@@ -93,6 +93,9 @@ public class GroupBuyOrderList extends Page implements Serializable {
     /**
      * 创建时间
      */
+
+    private Date outTradeTime;
+
     private Date createTime;
 
     /**

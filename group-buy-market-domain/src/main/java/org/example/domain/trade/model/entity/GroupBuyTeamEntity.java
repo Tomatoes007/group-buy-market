@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.types.enums.GroupBuyOrderEnumVO;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,5 +25,8 @@ public class GroupBuyTeamEntity {
     private Integer lockCount;
     /** 状态（0-拼单中、1-完成、2-失败） */
     private GroupBuyOrderEnumVO status;
+
+    private Date validStartTime;
+    private Date validEndTime;
 
 }

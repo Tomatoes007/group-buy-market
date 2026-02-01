@@ -5,6 +5,8 @@ import org.example.domain.trade.adapter.repository.ITradeRepository;
 import org.example.domain.trade.model.aggregate.GroupBuyTeamSettlementAggregate;
 import org.example.domain.trade.model.entity.*;
 import org.example.domain.trade.service.ITradeSettlementOrderService;
+import org.example.domain.trade.service.settlement.factory.TradeSettlementRuleFilterFactory;
+import org.example.types.design.framework.link.model2.chain.BussinessLinkedList;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,32 +18,58 @@ public class TradeSettlementOrderService implements ITradeSettlementOrderService
     @Resource
     private ITradeRepository repository;
 
+    @Resource
+    private BussinessLinkedList<TradeSettlementRuleCommandEntity,
+            TradeSettlementRuleFilterFactory.DynamicContext, TradeSettlementRuleFilterBackEntity> tradeSettlementRuleFilter;
+
     @Override
-    public TradePaySettlementEntity settlementMarketPayOrder(TradePaySuccessEntity tradePaySuccess) {
+    public TradePaySettlementEntity settlementMarketPayOrder(TradePaySuccessEntity tradePaySuccessEntity) throws Exception {
 
-        MarketPayOrderEntity marketPayOrderEntity = repository.queryNoPayMarketPayOrderByOutTradeNo(tradePaySuccess.getUserId(), tradePaySuccess.getOutTradeNo());
-        if(null==marketPayOrderEntity){
-            return null;
-        }
+//        MarketPayOrderEntity marketPayOrderEntity = repository.queryNoPayMarketPayOrderByOutTradeNo(tradePaySuccess.getUserId(), tradePaySuccess.getOutTradeNo());
+//        if(null==marketPayOrderEntity){
+//            return null;
+//        }
 
-        GroupBuyTeamEntity groupBuyTeamEntity = repository.queryGroupBuyTeamByTeamID(marketPayOrderEntity.getTeamId());
+        TradeSettlementRuleFilterBackEntity tradeSettlementRuleFilterBackEntity = tradeSettlementRuleFilter.apply(
+                TradeSettlementRuleCommandEntity.builder()
+                        .source(tradePaySuccessEntity.getSource())
+                        .channel(tradePaySuccessEntity.getChannel())
+                        .userId(tradePaySuccessEntity.getUserId())
+                        .outTradeNo(tradePaySuccessEntity.getOutTradeNo())
+                        .outTradeTime(tradePaySuccessEntity.getOutTradeTime())
+                        .build(),
+                new TradeSettlementRuleFilterFactory.DynamicContext());
+
+        String teamId = tradeSettlementRuleFilterBackEntity.getTeamId();
+
+        GroupBuyTeamEntity groupBuyTeamEntity = GroupBuyTeamEntity.builder()
+                .teamId(tradeSettlementRuleFilterBackEntity.getTeamId())
+                .activityId(tradeSettlementRuleFilterBackEntity.getActivityId())
+                .targetCount(tradeSettlementRuleFilterBackEntity.getTargetCount())
+                .completeCount(tradeSettlementRuleFilterBackEntity.getCompleteCount())
+                .lockCount(tradeSettlementRuleFilterBackEntity.getLockCount())
+                .status(tradeSettlementRuleFilterBackEntity.getStatus())
+                .validStartTime(tradeSettlementRuleFilterBackEntity.getValidStartTime())
+                .validEndTime(tradeSettlementRuleFilterBackEntity.getValidEndTime())
+                .build();
+
 
         GroupBuyTeamSettlementAggregate groupBuyTeamSettlementAggregate = GroupBuyTeamSettlementAggregate.builder()
                 .userEntity(UserEntity.builder()
-                        .userId(tradePaySuccess.getUserId()).build())
+                        .userId(tradePaySuccessEntity.getUserId()).build())
                 .groupBuyTeamEntity(groupBuyTeamEntity)
-                .tradePaySuccessEntity(tradePaySuccess)
+                .tradePaySuccessEntity(tradePaySuccessEntity)
                 .build();
 
         repository.settlementMarketPayOrder(groupBuyTeamSettlementAggregate);
 
         return TradePaySettlementEntity.builder()
-                .source(tradePaySuccess.getSource())
-                .channel(tradePaySuccess.getChannel())
-                .userId(tradePaySuccess.getUserId())
-                .teamId(marketPayOrderEntity.getTeamId())
+                .source(tradePaySuccessEntity.getSource())
+                .channel(tradePaySuccessEntity.getChannel())
+                .userId(tradePaySuccessEntity.getUserId())
+                .teamId(teamId)
                 .activityId(groupBuyTeamEntity.getActivityId())
-                .outTradeNo(tradePaySuccess.getOutTradeNo())
+                .outTradeNo(tradePaySuccessEntity.getOutTradeNo())
                 .build();
     }
 }

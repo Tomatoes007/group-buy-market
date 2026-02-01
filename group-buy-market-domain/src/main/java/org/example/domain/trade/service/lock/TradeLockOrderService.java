@@ -5,7 +5,7 @@ import org.example.domain.trade.model.aggregate.GroupBuyOrderAggregate;
 import org.example.domain.trade.model.entity.*;
 import org.example.domain.trade.model.valobj.GroupBuyProgressVO;
 import org.example.domain.trade.service.ITradeLockOrderService;
-import org.example.domain.trade.service.lock.factory.TradeRuleFilterFactory;
+import org.example.domain.trade.service.lock.factory.TradeLockRuleFilterFactory;
 import org.example.types.design.framework.link.model2.chain.BussinessLinkedList;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class TradeLockOrderService implements ITradeLockOrderService {
     private ITradeRepository repository;
 
     @Resource
-    private BussinessLinkedList<TradeLockRuleCommandEntity, TradeRuleFilterFactory.DynamicContext, TradeLockRuleFilterBackEntity> tradeRuleFilter;
+    private BussinessLinkedList<TradeLockRuleCommandEntity, TradeLockRuleFilterFactory.DynamicContext, TradeLockRuleFilterBackEntity> tradeRuleFilter;
 
     @Override
     public GroupBuyProgressVO queryGroupBuyProgress(String teamId) {
@@ -36,7 +36,7 @@ public class TradeLockOrderService implements ITradeLockOrderService {
         TradeLockRuleFilterBackEntity tradeRuleFilterBackEntity = tradeRuleFilter.apply(TradeLockRuleCommandEntity.builder()
                         .activityId(payActivityEntity.getActivityId())
                         .userId(userEntity.getUserId()).build()
-                , new TradeRuleFilterFactory.DynamicContext());
+                , new TradeLockRuleFilterFactory.DynamicContext());
 
         Integer userTakeOrderCount = tradeRuleFilterBackEntity.getUserTakeOrderCount();
 

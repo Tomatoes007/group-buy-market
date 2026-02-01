@@ -83,5 +83,9 @@ public class GroupBuyOrder implements Serializable {
      */
     private Date updateTime;
 
+    private Date validStarTime;
+
+    private Date validEndTime;
+
     private static final long serialVersionUID = 1L;
 }

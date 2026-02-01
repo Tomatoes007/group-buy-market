@@ -5,7 +5,7 @@ import org.example.domain.trade.adapter.repository.ITradeRepository;
 import org.example.domain.trade.model.entity.GroupBuyActivityEntity;
 import org.example.domain.trade.model.entity.TradeLockRuleCommandEntity;
 import org.example.domain.trade.model.entity.TradeLockRuleFilterBackEntity;
-import org.example.domain.trade.service.lock.factory.TradeRuleFilterFactory;
+import org.example.domain.trade.service.lock.factory.TradeLockRuleFilterFactory;
 import org.example.types.design.framework.link.model2.handler.ILogicHandler;
 import org.example.types.enums.ResponseCode;
 import org.example.types.exception.AppException;
@@ -15,13 +15,13 @@ import javax.annotation.Resource;
 
 @Slf4j
 @Service
-public class UserTakeLimitRuleFilter implements ILogicHandler<TradeLockRuleCommandEntity, TradeRuleFilterFactory.DynamicContext, TradeLockRuleFilterBackEntity> {
+public class UserTakeLimitRuleFilter implements ILogicHandler<TradeLockRuleCommandEntity, TradeLockRuleFilterFactory.DynamicContext, TradeLockRuleFilterBackEntity> {
 
     @Resource
     private ITradeRepository repository;
 
     @Override
-    public TradeLockRuleFilterBackEntity apply(TradeLockRuleCommandEntity requestParameter, TradeRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
+    public TradeLockRuleFilterBackEntity apply(TradeLockRuleCommandEntity requestParameter, TradeLockRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
         log.info("交易规则过滤-用户参与次数校验{} activityId:{}", requestParameter.getUserId(), requestParameter.getActivityId());
 
         //用户参与活动的次数，必须<= group_buy_activity 表中的 take_limit_count
