@@ -87,5 +87,7 @@ public class GroupBuyOrder implements Serializable {
 
     private Date validEndTime;
 
+    private  String notifyUrl;
+
     private static final long serialVersionUID = 1L;
 }

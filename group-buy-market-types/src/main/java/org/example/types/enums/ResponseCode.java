@@ -14,6 +14,7 @@ public enum ResponseCode {
     UN_ERROR("0001", "未知失败"),
     ILLEGAL_PARAMETER("0002", "非法参数"),
     DB_EXCEPTION("00001","数据库操作异常"),
+    HTTP_EXCEPTION("00005","http接口调用异常"),
 
 
     E0001("E0001", "不存在对应折扣计算方式"),

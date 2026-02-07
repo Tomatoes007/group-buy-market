@@ -46,4 +46,6 @@ public class PayDiscountEntity {
      */
     private String outTradeNo;
 
+    private String notifyUrl;
+
 }

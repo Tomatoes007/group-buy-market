@@ -32,7 +32,7 @@ public class TradeSettlementTest {
         tradePaySuccessEntity.setSource("s01");
         tradePaySuccessEntity.setChannel("c01");
         tradePaySuccessEntity.setUserId("lzm01");
-        tradePaySuccessEntity.setOutTradeNo("382273897857");
+        tradePaySuccessEntity.setOutTradeNo("223108184347");
         tradePaySuccessEntity.setOutTradeTime(new Date());
         TradePaySettlementEntity tradePaySettlementEntity = tradeSettlementOrderService.settlementMarketPayOrder(tradePaySuccessEntity);
         log.info("请求参数:{}", JSON.toJSONString(tradePaySuccessEntity));

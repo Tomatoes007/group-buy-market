@@ -20,15 +20,15 @@
         <result column="valid_end_time" jdbcType="TIMESTAMP" property="validEndTime"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-
+        <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl"/>
     </resultMap>
 
     <insert id="insert" parameterType="org.example.infrastructure.dao.po.GroupBuyOrder">
         insert into group_buy_order(team_id, activity_id, source, channel, original_price,
                                     deduction_price, pay_price, target_count, complete_count,
-                                    lock_count, status,valid_start_time,valid_end_time, create_time, update_time)
+                                    lock_count, status,notify_url,valid_start_time,valid_end_time, create_time, update_time)
         values (#{teamId}, #{activityId}, #{source}, #{channel}, #{originalPrice},
-                #{deductionPrice}, #{payPrice}, #{targetCount}, #{completeCount}, #{lockCount}, 0,#{validStarTime},#{validEndTime}, now(), now())
+                #{deductionPrice}, #{payPrice}, #{targetCount}, #{completeCount}, #{lockCount}, 0, #{notifyUrl},#{validStarTime},#{validEndTime}, now(), now())
     </insert>
 
     <update id="updateAddLockCount" parameterType="java.lang.String">
@@ -64,6 +64,7 @@
                lock_count,
                valid_start_time,
                valid_end_time,
+               notify_url,
                status
         from group_buy_order
         where team_id = #{teamId}
